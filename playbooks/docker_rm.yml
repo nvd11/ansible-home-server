@@ -1,0 +1,20 @@
+---
+- hosts: web_servers
+  remote_user: gateman
+
+  tasks:
+  - name: docker check is there a container in the exited stage
+    shell: docker ps -a -f "name={{container_name}}" -f "status=exited" | grep {{container_name}}
+    register: docker_ps_rst # if no record returned by grep , the variable boolean value will be failed
+    ignore_errors: True
+
+  - name: print the docker ps result
+    debug: var=docker_ps_rst verbosity=0 # log level , 0 = debug
+
+  - name: print ps command is succeeded
+    shell: hostname
+    when: docker_ps_rst is success
+
+  - name: docker remove it {{container_name}}
+    shell: docker rm {{container_name}}
+    when: docker_ps_rst is success
