@@ -11,8 +11,10 @@
   - name: print the docker ps result
     debug: var=docker_ps_rst verbosity=0 # log level , 0 = debug
 
-  - name: print ps command is succeeded
-    shell: hostname
+  - name: print ps command is succeeded or not
+    ansible.builtin.debug:
+      msg:
+        - The container {{container_name}} is existed in host {{ inventory_hostname }}, continue process..
     when: docker_ps_rst is success
 
   - name: docker remove it {{container_name}}

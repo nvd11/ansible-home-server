@@ -1,0 +1,34 @@
+---
+- hosts: web_servers
+  remote_user: gateman
+
+  tasks:
+  - name: docker check is there a container in the exited stage
+    shell: docker ps -a -f "name={{container_name}}" | grep {{container_name}}
+    register: docker_ps_rst # if no record returned by grep , the variable boolean value will be failed
+    ignore_errors: True
+
+  - name: print the docker ps result
+    debug: var=docker_ps_rst verbosity=0 # log level , 0 = debug
+
+  - name: print ps command is succeeded or not, it's a debug msg
+    ansible.builtin.debug:
+      msg:
+      - The container {{container_name}} is already existed in host {{ inventory_hostname }}
+      - The playbook will not run the image
+    when: docker_ps_rst is success
+
+  - name: stop this runbook as if the container is existing.
+    fail:
+      msg: the tasks will be stopped as container is already there!!!!
+    when: docker_ps_rst is success
+
+
+  - name: Debug message for if the container is not existed
+    ansible.builtin.debug:
+      msg:
+      - The container {{container_name}} is not existed in host {{ inventory_hostname }}, continue process..
+    when: docker_ps_rst is failed
+
+  - name: start the container
+    shell: docker run -d -p {{port_map}} --name {{container_name}} {{docker_host}}{{repo}}:{{tag}}
