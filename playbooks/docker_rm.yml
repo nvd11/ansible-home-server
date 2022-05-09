@@ -8,15 +8,29 @@
     register: docker_ps_rst # if no record returned by grep , the variable boolean value will be failed
     ignore_errors: True
 
-  - name: print the docker ps result
+  - name: get the result condition for exited stage
     debug: var=docker_ps_rst verbosity=0 # log level , 0 = debug
+
+    # for another status Created
+  - name: docker check is there a container in the Created stage
+    shell: docker ps -a -f "name={{container_name}}" -f "status=created" | grep {{container_name}}
+    register: docker_ps_rst2 # if no record returned by grep , the variable boolean value will be failed
+    ignore_errors: True
+
+  - name: get the result condition for Created stage
+    debug: var=docker_ps_rst2 verbosity=0 # log level , 0 = debug
+
 
   - name: print ps command is succeeded or not
     ansible.builtin.debug:
       msg:
         - The container {{container_name}} is existed in host {{ inventory_hostname }}, continue process..
-    when: docker_ps_rst is success
+    when: (docker_ps_rst is success or docker_ps_rst2 is success)
 
   - name: docker remove it {{container_name}}
     shell: docker rm {{container_name}}
-    when: docker_ps_rst is success
+    when: (docker_ps_rst is success or docker_ps_rst2 is success)
+
+  - name: docker remove it {{container_name}}
+    shell: docker rm {{container_name}}
+    when: (docker_ps_rst is success or docker_ps_rst2 is success)
