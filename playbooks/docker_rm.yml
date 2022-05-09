@@ -30,7 +30,3 @@
   - name: docker remove it {{container_name}}
     shell: docker rm {{container_name}}
     when: (docker_ps_rst is success or docker_ps_rst2 is success)
-
-  - name: docker remove it {{container_name}}
-    shell: docker rm {{container_name}}
-    when: (docker_ps_rst is success or docker_ps_rst2 is success)
