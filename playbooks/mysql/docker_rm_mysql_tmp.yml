@@ -1,0 +1,19 @@
+---
+- hosts: "{{servers}}"
+  remote_user: gateman
+  vars:
+    container_name: docker_mysql
+  tasks:
+    - name: check if mysql container is exists
+      shell: docker ps -f "name={{container_name}}" | grep {{container_name}}
+      register: docker_ps_rst # if no record returned by grep , the variable boolean value will be failed
+      ignore_errors: True
+
+    - name: docker stop it {{container_name}}
+      shell: docker stop {{container_name}}
+      when: docker_ps_rst is success
+
+    - name: docker check is there a container in the exited stage
+      shell: docker ps -a -f "name={{container_name}}" -f "status=exited" | grep {{container_name}}
+      register: docker_ps_rst # if no record returned by grep , the variable boolean value will be failed
+      ignore_errors: True
