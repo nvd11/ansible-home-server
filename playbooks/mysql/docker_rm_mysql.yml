@@ -2,12 +2,7 @@
 - hosts: "{{servers}}"
   remote_user: "{{remote_user}}"
 
-  debug:
-    msg:
-      - "servers is: {{servers}}"
-      - "remote_user is: {{remote_user}}"
-      - "container_name is: {{container_name}}"
-      - "this playbook will use ../common/docker_rm_mysql.yml to stop and rm the existing mysql container"
+
 
 - name: use another common playbook to stop container, could not be used in under setion tasks
   import_playbook: ../common/common_docker_stop.yml
