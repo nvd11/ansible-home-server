@@ -6,6 +6,6 @@
     - name: create user
       user:
         name: "{{ item.user }}"
-        password: "{{ 'item.pass'|password_hash('sha512') }}"
+        password: "{{ 'item.pass' }}"
         state: present
       loop: "{{ userlist }}"
