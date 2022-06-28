@@ -3,13 +3,14 @@
   remote_user: "{{ansible_user}}"
 
   tasks:
-  - name: docker check is there a container in the exited stage
-    debug:
+  - name: print debug msg for paramaters
+      debug:
       msg:
         - "servers is: {{servers}}"
         - "remote_user is: {{remote_user}}"
         - "container_name is: {{container_name}}"
 
+  - name: docker check is there a container in the exited stage
     shell: docker ps -a -f "name={{container_name}}" -f "status=exited" | grep {{container_name}}
     register: docker_ps_rst # if no record returned by grep , the variable boolean value will be failed
     ignore_errors: True
