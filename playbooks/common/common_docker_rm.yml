@@ -4,7 +4,7 @@
 
   tasks:
   - name: print debug msg for paramaters
-      debug:
+    debug:
       msg:
         - "servers is: {{servers}}"
         - "remote_user is: {{remote_user}}"
