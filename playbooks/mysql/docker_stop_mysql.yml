@@ -5,7 +5,7 @@
 
 
 - name: use another common playbook to stop container, could not be used in under setion tasks
-  import_playbook: ../common/common_docker_rm.yml
+  import_playbook: ../common/common_docker_stop.yml
   vars:
     servers: "{{servers}}"
     ansible_user: "{{remote_user}}"
