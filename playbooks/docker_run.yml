@@ -25,10 +25,10 @@
 
 
   - name: Debug message for if the container is not existed
-    ansible.builtin.debug:
+  `  ansible.builtin.debug:
       msg:
-      - The container {{container_name}} is not existed in host {{ inventory_hostname }}, continue process..
+      - The container {{container_name}} is not existed in host {{ inventory_hostname }}, continue process..`
     when: docker_ps_rst is failed
 
-  - name: start the container
+  - name: start the container # -d means run it in backend, and return the container id
     shell: docker run -d -p {{port_map}} --name {{container_name}} {{docker_host}}{{repo}}:{{tag}}
