@@ -4,7 +4,7 @@
 
 
 
-- name: use another common playbook to stop container, could not be used in under setion tasks
+- name: use another common playbook to stop container, could not be used in under section tasks
   import_playbook: ../common/common_docker_rm.yml
   vars:
     servers: "{{servers}}"
