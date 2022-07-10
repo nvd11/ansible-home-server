@@ -1,0 +1,17 @@
+---
+- hosts: "{{servers}}"
+  remote_user: "{{remote_user}}"
+
+- name: use another common playbook to pull a image, could not be used in under section tasks
+  import_playbook: ../common/common_docker_run.yml
+  vars:
+    servers: "{{servers}}"
+    ansible_user: "{{remote_user}}"
+    container_name: "{{container_name}}"
+    docker_host: "{{docker_host}}"
+    repo: "{{repo}}"
+    tag: "{{tag}}"
+    port_map: "{{port_map}}"
+    extend_paras: "{{extend_paras}}"
+
+

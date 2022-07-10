@@ -9,7 +9,7 @@
         - "servers is: {{servers}}"
         - "remote_user is: {{remote_user}}"
         - "docker_host is: {{docker_host}}"
-        - "repo is: {{tag}}"
+        - "repo is: {{repo}}"
         - "tag is: {{tag}}"
 
   - name: docker_pull
