@@ -25,7 +25,7 @@
 
 
   - name: Debug message for if the container is not existed
-  `  ansible.builtin.debug:
+    ansible.builtin.debug:
       msg:
       - The container {{container_name}} is not existed in host {{ inventory_hostname }}, continue process..`
     when: docker_ps_rst is failed
