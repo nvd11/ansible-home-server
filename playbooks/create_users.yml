@@ -1,6 +1,7 @@
 ---
 - hosts: "{{servers}}"
   remote_user: root
+  gather_facts: false
   vars_files: ./user_list.yml
   tasks:
     - name: create user

@@ -1,7 +1,7 @@
 ---
 - hosts: web_servers
   remote_user: gateman
-
+  gather_facts: false
   tasks:
   - name: docker check is there a container in the exited stage
     shell: docker ps -a -f "name={{container_name}}" | grep {{container_name}}
