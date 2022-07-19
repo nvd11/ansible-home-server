@@ -7,7 +7,7 @@
     debug:
       msg:
         - "servers is: {{servers}}"
-        - "remote_user is: {{remote_user}}"
+        - "ansible_user is: {{ansible_user}}"
         - "container_name is: {{container_name}}"
 
   - name: docker check is there a container running
