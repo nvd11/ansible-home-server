@@ -6,8 +6,8 @@ create user If Not Exists cloud_order@'%' identified by 'hsbc1234';
 create user If Not Exists cloud_user@'%' identified by 'hsbc1234';
 create user If Not Exists nvd11@'%' identified by 'hsbc1234';
 
-grant select,insert,update,delete,create,alter,drop on demo_spring.* to nvd11;
-grant select,insert,update,delete,create,alter,drop on demo_cloud_order.* to cloud_order;
-grant select,insert,update,delete,create,alter,drop on demo_cloud_user.* to cloud_user;
+grant select,insert,update,delete,create,alter,drop,REFERENCES on demo_spring.* to nvd11;
+grant select,insert,update,delete,create,alter,drop,REFERENCES on demo_cloud_order.* to cloud_order;
+grant select,insert,update,delete,create,alter,drop,REFERENCES on demo_cloud_user.* to cloud_user;
 
 flush  privileges;  -- immediately apply changes
